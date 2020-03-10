@@ -1,0 +1,40 @@
+{
+  "name": "socket-animation",
+  "author": "André Lergier",
+  "version": "0.0.1",
+  "description": "my first socket.io app",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.mjs"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "extends": [
+      "airbnb-base"
+    ],
+    "plugins": [],
+    "rules": {
+      "no-console": 0,
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": true
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.1",
+    "nodemon": "^2.0.2"
+  }
+}
