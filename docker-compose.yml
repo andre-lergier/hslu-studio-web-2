@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  nodejs:
+    build:
+      context: ./node_application
+      dockerfile: Dockerfile
+    image: nodejs
+    container_name: nodejs
+    restart: unless-stopped
+    networks:
+      - app-network # A user-defined bridge network like this enables communication between containers on the same Docker daemon host.
+  
+  webserver:
+    image: nginx:mainline-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80" # aussen:innen
+    volumes:
+      - web-root:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+    depends_on:
+      - nodejs # zuerst muss somit node container gestartet werden
+    networks:
+      - app-network
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    depends_on:
+      - webserver
+    command: certonly --webroot --webroot-path=/var/www/html --email andre@lergier.ch --agree-tos --no-eff-email --staging -d studio-web-2.hslu.lergier.ch  -d www.studio-web-2.hslu.lergier.ch
+
+volumes: # harddisks
+  certbot-etc:
+  certbot-var:
+  web-root:
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   device: /home/sammy/node_project/views/
+    #   o: bind
+
+networks:
+  app-network:
+    driver: bridge

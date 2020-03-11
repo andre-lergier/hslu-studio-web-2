@@ -1,10 +1,28 @@
 ## Docker
+Configuration tutorial: https://www.digitalocean.com/community/tutorials/how-to-secure-a-containerized-node-js-application-with-nginx-let-s-encrypt-and-docker-compose
+
+#### run just node image
 ```zsh
 docker build -t node-socket-io . #image dockerfile wird aufgerufen und image erhält namen node-socket-io
 docker images #show all images
 docker run --name node-socket-io -p 8080:3000 node-socket-io #container wird gestartet; gegen aussen auf port 8080, gegen innen auf port 3000
 docker ps # show all running images
-docker system prune # restart gugus
+docker system prune # restart all
+docker system prune -a
+```
+
+##### Stop container
+Show all running containers
+```zsh
+docker ps #fdd49939c22d
+```
+
+```zsh
+docker stop fdd49939c22d
+```
+
+```zsh
+docker system prune -a
 ```
 
 ### SSH Key generieren

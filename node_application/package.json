@@ -5,7 +5,8 @@
   "description": "my first socket.io app",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.mjs"
+    "start": "nodemon index.mjs",
+    "build": "node index.mjs"
   },
   "eslintConfig": {
     "root": true,

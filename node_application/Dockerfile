@@ -23,4 +23,4 @@ COPY --chown=node:node . .
 
 EXPOSE 3000
 
-CMD [ "node", "index.mjs" ]
+CMD [ "npm", "run", "build" ]
