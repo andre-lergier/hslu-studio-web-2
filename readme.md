@@ -108,3 +108,24 @@ Stop a specific service / container
 ```zsh
 docker-compose stop webserver
 ```
+
+Build images, doesn't start the containers
+```zsh
+docker-compose build
+```
+
+Build images if images do not exist, then start the containers
+```zsh
+docker-compose up
+```
+
+Build all images, even if they exist, then starts the containers
+```zsh
+docker-compose up --build
+```
+
+## Renew SSL
+Commands to run on VM
+```zsh
+sudo crontab -e
+```
