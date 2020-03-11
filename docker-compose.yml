@@ -16,12 +16,14 @@ services:
     container_name: webserver
     restart: unless-stopped
     ports:
-      - "80:80" # aussen:innen
+      - "80:80" # aussen an container:innen an container
+      - "443:443"
     volumes:
       - web-root:/var/www/html
       - ./nginx-conf:/etc/nginx/conf.d
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
+      - dhparam:/etc/ssl/certs
     depends_on:
       - nodejs # zuerst muss somit node container gestartet werden
     networks:
@@ -48,6 +50,12 @@ volumes: # harddisks
     #   type: none
     #   device: /home/sammy/node_project/views/
     #   o: bind
+  dhparam:
+    driver: local
+    driver_opts:
+      type: none
+      device: /root/hslu-studio-web-2/dhparam/
+      o: bind
 
 networks:
   app-network:
