@@ -108,9 +108,3 @@ Stop a specific service / container
 ```zsh
 docker-compose stop webserver
 ```
-
-### Initialize HTTPS
-Nur auf dem Server:
-```zsh
-sudo openssl dhparam -out /root/hslu-studio-web-2/dhparam/dhparam-2048.pem 2048
-```
