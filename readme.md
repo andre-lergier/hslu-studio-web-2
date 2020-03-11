@@ -59,6 +59,38 @@ apt install docker-compose
 if this doesn't work: https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
 ### start docker
+To start the webserver simply run the following command on the root directory of the git repo on the server.
 ```zsh
 docker-compose up
 ```
+To hide all Logs, add the flag -d
+```zsh
+docker-compose up -d
+```
+Check status:
+```zsh
+docker-compose ps
+```
+This should look like this:
+```zsh
+  Name                 Command               State          Ports       
+------------------------------------------------------------------------
+certbot     certbot certonly --webroot ...   Exit 0                     
+nodejs      docker-entrypoint.sh npm r ...   Up       3000/tcp          
+webserver   nginx -g daemon off;             Up       0.0.0.0:80->80/tcp
+```
+Show logs for a specific service:
+```zsh
+docker-compose logs certbot
+```
+Check that your credentials have been mounted to the webserver container
+```zsh
+docker-compose exec webserver ls -la /etc/letsencrypt/live
+
+# Output
+drwx------    3 root     root          4096 Mar 11 09:47 .
+drwxr-xr-x    9 root     root          4096 Mar 11 09:50 ..
+-rw-r--r--    1 root     root           740 Mar 11 09:47 README
+drwxr-xr-x    2 root     root          4096 Mar 11 09:47 studio-web-2.hslu.lergier.ch
+````
+

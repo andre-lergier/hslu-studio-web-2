@@ -36,7 +36,8 @@ services:
       - web-root:/var/www/html
     depends_on:
       - webserver
-    command: certonly --webroot --webroot-path=/var/www/html --email andre@lergier.ch --agree-tos --no-eff-email --staging -d studio-web-2.hslu.lergier.ch
+    command: certonly --webroot --webroot-path=/var/www/html --email andre@lergier.ch --agree-tos --no-eff-email --force-renewal -d studio-web-2.hslu.lergier.ch
+    # initial: command: certonly --webroot --webroot-path=/var/www/html --email andre@lergier.ch --agree-tos --no-eff-email --staging -d studio-web-2.hslu.lergier.ch
 
 volumes: # harddisks
   certbot-etc:
