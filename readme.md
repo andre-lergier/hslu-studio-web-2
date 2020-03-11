@@ -57,3 +57,8 @@ apt install docker.io
 apt install docker-compose
 ```
 if this doesn't work: https://docs.docker.com/install/linux/docker-ce/ubuntu/
+
+### start docker
+```zsh
+docker-compose up
+```
