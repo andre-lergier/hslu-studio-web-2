@@ -127,5 +127,13 @@ docker-compose up --build
 ## Renew SSL
 Commands to run on VM
 ```zsh
+chmod +x ssl_renew.sh
+```
+
+```zsh
 sudo crontab -e
+```
+
+```zsh
+*/2 * * * * /root/hslu-studio-web-2/ssl_renew.sh >> /var/log/cron.log 2>&1
 ```
