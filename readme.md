@@ -137,3 +137,8 @@ sudo crontab -e
 ```zsh
 */2 * * * * /root/hslu-studio-web-2/ssl_renew.sh >> /var/log/cron.log 2>&1
 ```
+
+later change to:
+```zsh
+0 0 * * * /root/hslu-studio-web-2/ssl_renew.sh >> /var/log/cron.log 2>&1
+```
