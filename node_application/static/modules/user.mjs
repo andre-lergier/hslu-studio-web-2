@@ -1,9 +1,8 @@
 export default class User {
-  constructor(id, numberId, color, order, isCurrentClient) {
-    this.id = id;
+  constructor(id, numberId, color, isCurrentClient) {
+    this.socketId = id;
     this.numberId = numberId;
     this.color = color;
-    this.order = order;
     this.isCurrentClient = isCurrentClient;
 
     this.userElementsContainer = '.connectedDevices';
@@ -20,25 +19,29 @@ export default class User {
   };
 
   createUserElement(animated) {
-    const userNode = document.createElement('aricle');
+    const userNode = document.createElement('article');
 
     if (this.isCurrentClient) {
-      userNode.classList.add('active');
+      userNode.classList.add('currentUser');
+    } else {
+      userNode.classList.add('otherUser');
     }
     if (!animated) {
       userNode.classList.add('show');
     }
-    userNode.classList.add('device', 'otherUser');
-    userNode.id = this.id;
-    userNode.title = this.id;
+
+    userNode.classList.add('device');
+    userNode.id = this.socketId;
+    userNode.title = this.socketId;
     userNode.draggable = true;
     userNode.setAttribute('data-numberId', this.numberId);
+    userNode.setAttribute('data-socketId', this.socketId);
 
     const deviceIcon = this.randomDeviceIcon();
     const userHtml = `
       <div class="userHeader">  
-        <img class="deviceIcon" src="/icons/${deviceIcon}">
-        <div class="userColorDot" style="background:${this.color}">${this.order}</div>
+        <img class="deviceIcon" draggable="false" src="/icons/${deviceIcon}">
+        <div class="userColorDot" style="background:${this.color}">${this.numberId}</div>
       </div>
       <p class="userName" style="border-color:${this.color};">User ${this.numberId}</p>`;
     userNode.innerHTML = userHtml;
@@ -46,7 +49,7 @@ export default class User {
 
     if (animated) {
       setTimeout(() => {
-        document.getElementById(this.id).classList.add('show');
+        document.getElementById(this.socketId).classList.add('show');
       }, 500);
     }
   }
@@ -56,22 +59,18 @@ export default class User {
    * @param map map
    */
   addToMap(map) {
-    map.set(this.numberId, this);
+    map.set(this.socketId, this);
   }
 
-  removeUserElement() {
-    const elem = document.getElementById(`${this.id}`);
-
-    // document.querySelector(`#${this.id}`); ist not valid
+  removeUserDOMElement() {
+    const elem = document.getElementById(`${this.socketId}`);
+    // document.querySelector(`#${this.socketId}`); ist not valid
     // if id starts with a number/digit, querySelector produces an error
 
-    /**
-     * TODO: very dirty!
-     * now it just removes element, if it's there.
-     * --> not removing, when printDevices is first called.
-     */
     if (elem) {
       elem.remove();
+    } else {
+      console.warn(`element to remove not found: ${this.socketId}`);
     }
   }
 

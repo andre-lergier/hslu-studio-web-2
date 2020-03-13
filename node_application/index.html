@@ -464,8 +464,10 @@
       import UserManagement from '/modules/userManagement.mjs';
       import DeviceMotion from '/modules/deviceMotion.mjs';
 
+      const debug = true;
+
       const socket = io();
-      const userManagement = new UserManagement(socket);
+      const userManagement = new UserManagement(socket, debug);
       const deviceMotion = new DeviceMotion();
       userManagement.initListeners();
       deviceMotion.initListeners();

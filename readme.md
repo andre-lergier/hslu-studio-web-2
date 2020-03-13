@@ -1,5 +1,6 @@
 ## Docker
 Configuration tutorial: https://www.digitalocean.com/community/tutorials/how-to-secure-a-containerized-node-js-application-with-nginx-let-s-encrypt-and-docker-compose
+Another nice tutorial: https://www.digitalocean.com/community/tutorials/how-to-build-a-node-js-application-with-docker
 
 #### run just node image
 ```zsh
@@ -134,6 +135,7 @@ chmod +x ssl_renew.sh
 sudo crontab -e
 ```
 
+Fancy time repeat generator: https://crontab.guru/#0_0_*_*_*
 ```zsh
 */2 * * * * /root/hslu-studio-web-2/ssl_renew.sh >> /var/log/cron.log 2>&1
 ```

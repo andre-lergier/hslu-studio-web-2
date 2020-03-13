@@ -7,7 +7,7 @@ import socketIo from 'socket.io';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
-import { isIos, getRandomColor } from './static/modules/utils.mjs';
+import { isIos, getRandomColor, removeElementFromArray } from './static/modules/utils.mjs';
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -35,7 +35,7 @@ let userNumberIdCounter = 0;
 
 
 /**
- * socket ist "user"
+ * socket ist "user", der etwas auslöst
  * io ist server
  *
  * @events
@@ -47,23 +47,20 @@ io.on('connection', (socket) => {
   userNumberIdCounter++;
 
   let color = getRandomColor();
-  let order = connectedUsers.size + 1; // add at end
-  order = userNumberIdCounter;
 
-  console.log(`user ${socket.id} got order ${order}`)
+  console.log(`user ${socket.id} got numberId ${userNumberIdCounter}`)
 
   let newConnectedUser = {
     socketId: socket.id,
     numberId: userNumberIdCounter,
     color,
-    order,
   }
 
   // inform client about himself
   io.to(`${socket.id}`).emit('clientData', newConnectedUser);
 
-  connectedUsers.set(newConnectedUser.numberId, newConnectedUser);
-  userOrder.push(newConnectedUser.numberId);
+  connectedUsers.set(newConnectedUser.socketId, newConnectedUser);
+  userOrder.push(newConnectedUser.socketId);
 
   // transform map for emit
   let connectedUsersArray = JSON.stringify(Array.from(connectedUsers));
@@ -77,12 +74,12 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     let deletedNumberId;
 
-    // eslint-disable-next-line no-restricted-syntax
     for (const [key, value] of connectedUsers) {
       if (value.socketId === socket.id) {
-        connectedUsers.delete(key);
-        deletedNumberId = key;
-        console.log(`user with key ${key} (${socket.id}) deleted`);
+        connectedUsers.delete(value.socketId);
+        removeElementFromArray(userOrder, value.socketId)
+        deletedNumberId = value.numberId;
+        console.log(`user with numberId ${deletedNumberId} (${socket.id}) deleted`);
         break;
       }
     }
@@ -94,13 +91,17 @@ io.on('connection', (socket) => {
       deletedNumberId: deletedNumberId,
     };
 
-    io.emit('userDisconnectUpdate', deletedUser);
+    io.emit('userDisconnectUpdate', {
+      deletedUser,
+      userOrder,
+    });
   });
 
   socket.on('orderUpdate', (newOrder) => {
     userOrder = newOrder;
 
-    io.emit('orderUpdate', userOrder);
+    // send update to all other users
+    socket.broadcast.emit('orderUpdate', userOrder);
   });
 
   // falls server 'chat message' empfängt
