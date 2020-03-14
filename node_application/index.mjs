@@ -14,11 +14,11 @@ const httpServer = http.createServer(app);
 const __filename = fileURLToPath(import.meta.url); // variable mit absolutem pfad zu aktueller datei, inkl. filename
 const __dirname = dirname(__filename); // __dirname ist bei neuer Node-Version nicht mehr definiert! daher muss diese neu "kreiert" werden
 
-// ssl
-// const privateKey = fs.readFileSync('/Users/andrelergier/.localhost-ssl/localhost.key', 'utf8');
-// const certificate = fs.readFileSync('/Users/andrelergier/.localhost-ssl/localhost.crt', 'utf8');
-// const credentials = { key: privateKey, cert: certificate };
-// const httpsServer = https.createServer(credentials, app);
+/* ssl
+const privateKey = fs.readFileSync('/Users/andrelergier/.localhost-ssl/localhost.key', 'utf8');
+const certificate = fs.readFileSync('/Users/andrelergier/.localhost-ssl/localhost.crt', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
+const httpsServer = https.createServer(credentials, app); */
 
 const io = socketIo(httpServer);
 app.use(express.static(`static`)); // ${__dirname}/
@@ -105,6 +105,6 @@ io.on('connection', (socket) => {
   });
 });
 
-httpServer.listen(3000, () => {
-  console.log('listening on *:3000');
+httpServer.listen(process.env.PORT || 3000, () => {
+  console.log(`listening on *:${httpServer.address().port}`);
 });
