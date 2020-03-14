@@ -453,7 +453,14 @@
       <button id="enableMotionTracking">Tracking aktivieren!</button>
     </main>
 
+    <section class="identifyContainer">
+      <span id="deviceNumer"></span>
+    </section>
+
     <footer>
+      <div class="buttonHolder">
+        <button id="identifyDevices" class="button"><span>Identify Devices</span></button>
+      </div>
       <section class="connectedDevices">
         
       </section>
@@ -463,14 +470,18 @@
     <script type="module">
       import UserManagement from '/modules/userManagement.mjs';
       import DeviceMotion from '/modules/deviceMotion.mjs';
+      import DeviceIdentification from '/modules/deviceIdentification.mjs';
 
       const debug = true;
 
       const socket = io();
       const userManagement = new UserManagement(socket, debug);
       const deviceMotion = new DeviceMotion();
+      const deviceIdentification = new DeviceIdentification();
+
       userManagement.initListeners();
       deviceMotion.initListeners();
+      deviceIdentification.initListeners();
 
       /**
        * update client user id on page

@@ -101,13 +101,7 @@ io.on('connection', (socket) => {
     userOrder = newOrder;
 
     // send update to all other users
-    socket.broadcast.emit('orderUpdate', userOrder);
-  });
-
-  // falls server 'chat message' empfängt
-  socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
-    io.emit('chat message', msg);
+    socket.broadcast.emit('orderUpdate', userOrder); // io.emit('orderUpdate', userOrder)
   });
 });
 

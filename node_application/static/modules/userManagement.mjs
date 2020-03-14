@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable no-restricted-syntax */
 import User from './user.mjs';
+// import { polyfill } from "mobile-drag-drop";
 
 export default class UserManagement {
   constructor(socket, debug) {
@@ -195,7 +196,7 @@ export default class UserManagement {
 
     // must define on dragstart
     e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', userElement.outerHTML);
+    // e.dataTransfer.setData('text/html', userElement.outerHTML);
     e.dataTransfer.setData('text', userElement.id);
   
     if(this.debug) {
@@ -239,10 +240,9 @@ export default class UserManagement {
 
   onDropOverConnectedDevices(e) {
     e.preventDefault();
-    e.stopPropagation();
 
     e.dataTransfer.dropEffect = 'move';
-    const transferredHTML = e.dataTransfer.getData('text/html');
+    // const transferredHTML = e.dataTransfer.getData('text/html');
 
     // detect target device element (e.target could be just a <p>)
     let targetElement = e.target;
@@ -329,5 +329,8 @@ export default class UserManagement {
     dragOverContainer.addEventListener('drop', this.onDropOverConnectedDevices.bind(this));
 
     this.initUserElementListeners();
+
+    /* polyfill();
+    window.addEventListener( 'touchmove', function() {}); */
   }
 }

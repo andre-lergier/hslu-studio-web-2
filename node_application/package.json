@@ -8,6 +8,9 @@
     "start": "nodemon index.mjs",
     "build": "node index.mjs"
   },
+  "engines": {
+    "node": "13.9.x"
+  },
   "eslintConfig": {
     "root": true,
     "env": {
@@ -30,6 +33,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "mobile-drag-drop": "^2.3.0-rc.2",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {

@@ -144,3 +144,15 @@ later change to:
 ```zsh
 0 0 * * * /root/hslu-studio-web-2/ssl_renew.sh >> /var/log/cron.log 2>&1
 ```
+
+# Links
+
+## API references
+- HTML Drag and Drop API: https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+- Pointer Events: https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
+  - DataTransfer getData: https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/getData
+
+## Diverses
+- Drag and Drop Tutorial: https://www.html5rocks.com/de/tutorials/dnd/basics/
+- Pointer Events: https://patrickhlauke.github.io/touch/tracker/multi-touch-tracker-pointer-hud.html
+- Sortable.js: https://github.com/SortableJS/Sortable
