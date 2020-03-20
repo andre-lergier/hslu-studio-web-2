@@ -1,5 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,600,700,800,900&display=swap');
+
+$connectedDevicesHeight: 130px;
+
 *, *::after, *::before {
   box-sizing: border-box;
+}
+
+:root{
+  --font-serif: 'Playfair Display', serif;
 }
 
 html{
@@ -111,8 +119,57 @@ main{
   position: fixed;
   top: 0;
   left:0;
-  height: 100%;
+  height: calc(100% - #{$connectedDevicesHeight});
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-serif);
+  text-align: center;
+}
+
+.identifyWrapper{
+  transform: translateY(-.5rem);
+}
+
+.identifyDeviceNumberWrapper{
+  font-size: 25rem;
+  line-height: 1;
+  font-variant-numeric: 'lnum';
+  font-feature-settings: 'lnum', 'pnum';
+  font-weight: 600;
+  overflow: hidden;
+
+  .blurEffect &{
+    filter: blur(30px);
+    transform: translate3d(0, 20%, 0);
+    transform: scale3d(0.5, 0.5, 0.5);
+    opacity: 0;
+    transition: all .8s cubic-bezier(0.11, 0.65, 0.34, 0.96) 0s;
+
+    .identifyIn &{
+      filter: blur(0px);
+      transform: translate3d(0, 0%, 0);
+      transform: scale3d(1, 1, 1);
+      opacity: 1;
+    }
+
+    .identifyOut &{
+      transform: translate3d(0, -20%, 0);
+      transform: scale3d(1.5, 1.5, 1.5);
+    }
+  }
+
+  #identifyDeviceNumber{
+    display: block;
+    transform: translateY(-4rem);
+  }
+}
+
+.identifyDeviceTextWrapper{
+  font-size:3rem;
+  line-height:1;
+  overflow: hidden;
 }
 
 footer{
@@ -140,7 +197,7 @@ footer{
     background: var(--color-light-grey);
     transition: all ease .3s;
     -webkit-overflow-scrolling: touch;
-    min-height: 130px;
+    min-height: $connectedDevicesHeight;
 
     &.draggingOver{
       border-top: 4px solid #666;

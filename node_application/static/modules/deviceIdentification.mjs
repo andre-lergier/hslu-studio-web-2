@@ -2,13 +2,25 @@ export default class DeviceIdentification {
   constructor(socket, debug) {
     this.socket = socket;
     this.debug = debug;
+
+    this.animationEffects = [
+      'blurEffect',
+    ]
   }
 
   identifyDevice(data) {
-    console.log('hello, I got pinged from ' + data.triggerSocketId);
+    console.log('Ping from ' + data.triggerSocketId);
     console.log(`myOrder is ${data.userPosition}`);
 
-    document.querySelector('#deviceNumer').innerHTML = data.userPosition;
+    document.querySelector('#identifyDeviceNumber').innerHTML = data.userPosition;
+
+    const identifyContainer = document.querySelector('.identifyContainer');
+    const identifyWrapper = document.querySelector('.identifyWrapper');
+
+    identifyWrapper.classList.add(this.animationEffects[0]);
+    identifyWrapper.getBoundingClientRect();
+    identifyContainer.getBoundingClientRect();
+    identifyContainer.classList.add('identifyIn');
 
     setTimeout(() => {
       this.socket.emit('identifyDeviceReply');

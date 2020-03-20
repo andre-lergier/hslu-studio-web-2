@@ -1,6 +1,10 @@
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,600,700,800,900&display=swap");
 *, *::after, *::before {
   -webkit-box-sizing: border-box;
           box-sizing: border-box; }
+
+:root {
+  --font-serif: 'Playfair Display', serif; }
 
 html {
   --color-primary: #538797;
@@ -112,8 +116,64 @@ main {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 100%; }
+  height: calc(100% - 130px);
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: var(--font-serif);
+  text-align: center; }
+
+.identifyWrapper {
+  -webkit-transform: translateY(-0.5rem);
+          transform: translateY(-0.5rem); }
+
+.identifyDeviceNumberWrapper {
+  font-size: 25rem;
+  line-height: 1;
+  font-variant-numeric: 'lnum';
+  -webkit-font-feature-settings: 'lnum', 'pnum';
+          font-feature-settings: 'lnum', 'pnum';
+  font-weight: 600;
+  overflow: hidden; }
+  .blurEffect .identifyDeviceNumberWrapper {
+    -webkit-filter: blur(30px);
+            filter: blur(30px);
+    -webkit-transform: translate3d(0, 20%, 0);
+            transform: translate3d(0, 20%, 0);
+    -webkit-transform: scale3d(0.5, 0.5, 0.5);
+            transform: scale3d(0.5, 0.5, 0.5);
+    opacity: 0;
+    -webkit-transition: all 0.8s cubic-bezier(0.11, 0.65, 0.34, 0.96) 0s;
+    transition: all 0.8s cubic-bezier(0.11, 0.65, 0.34, 0.96) 0s; }
+    .identifyIn .blurEffect .identifyDeviceNumberWrapper {
+      -webkit-filter: blur(0px);
+              filter: blur(0px);
+      -webkit-transform: translate3d(0, 0%, 0);
+              transform: translate3d(0, 0%, 0);
+      -webkit-transform: scale3d(1, 1, 1);
+              transform: scale3d(1, 1, 1);
+      opacity: 1; }
+    .identifyOut .blurEffect .identifyDeviceNumberWrapper {
+      -webkit-transform: translate3d(0, -20%, 0);
+              transform: translate3d(0, -20%, 0);
+      -webkit-transform: scale3d(1.5, 1.5, 1.5);
+              transform: scale3d(1.5, 1.5, 1.5); }
+  .identifyDeviceNumberWrapper #identifyDeviceNumber {
+    display: block;
+    -webkit-transform: translateY(-4rem);
+            transform: translateY(-4rem); }
+
+.identifyDeviceTextWrapper {
+  font-size: 3rem;
+  line-height: 1;
+  overflow: hidden; }
 
 footer {
   position: fixed;

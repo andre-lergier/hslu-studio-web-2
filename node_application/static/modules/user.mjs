@@ -1,3 +1,6 @@
+// import inlineSVG from 'inline-svg';
+// import inlineSVG from './inlineSVG.mjs';
+
 export default class User {
   constructor(id, numberId, color, deviceType, isCurrentClient) {
     this.socketId = id;
@@ -53,6 +56,13 @@ export default class User {
         document.getElementById(this.socketId).classList.add('show');
       }, 500);
     }
+
+    /*inlineSVG.init({
+      svgSelector: '.deviceIcon', // the class attached to all images that should be inlined
+      initClass: 'js-inlinesvg', // class added to <html>
+    }, function () {
+      console.log('All SVGs inlined');
+    });*/
   }
 
   /**

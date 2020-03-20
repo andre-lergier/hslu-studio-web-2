@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html class="">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -453,8 +453,15 @@
       <button id="enableMotionTracking">Tracking aktivieren!</button>
     </main>
 
-    <section class="identifyContainer">
-      <span id="deviceNumer"></span>
+    <section class="identifyContainer"> <!-- triggerIn class will be applied here -->
+      <div class="identifyWrapper"> <!-- effect class will be applied here -->
+        <div class="identifyDeviceNumberWrapper">
+          <span id="identifyDeviceNumber"></span>
+        </div>
+        <div class="identifyDeviceTextWrapper">
+          <span id="identifyDeviceText">Device №</span>
+        </div>
+      </div>
     </section>
 
     <footer>
