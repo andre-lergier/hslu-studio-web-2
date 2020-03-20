@@ -125,6 +125,12 @@ Build all images, even if they exist, then starts the containers
 docker-compose up --build
 ```
 
+### Initialize HTTPS
+Only on Server:
+```zsh
+sudo openssl dhparam -out /root/hslu-studio-web-2/dhparam/dhparam-2048.pem 2048
+```
+
 ## Renew SSL
 Commands to run on VM
 ```zsh
@@ -156,3 +162,4 @@ later change to:
 - Drag and Drop Tutorial: https://www.html5rocks.com/de/tutorials/dnd/basics/
 - Pointer Events: https://patrickhlauke.github.io/touch/tracker/multi-touch-tracker-pointer-hud.html
 - Sortable.js: https://github.com/SortableJS/Sortable
+- Heroku deploy Subdirectory: https://github.com/timanovsky/subdir-heroku-buildpack

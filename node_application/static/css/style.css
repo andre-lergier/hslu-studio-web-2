@@ -2,21 +2,34 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box; }
 
-:root {
+html {
   --color-primary: #538797;
   --color-2: #c2d9cd;
   --color-3: #ff842a;
   --color-4: #fed55d;
   --color-5: #fcfaf1;
+  --color-background: #fff;
+  --color-text: #161719;
   --color-light-grey: #f4f4f4;
   --color-light-grey-darken: #eee;
   --color-dark-grey: #666; }
+  html.deviceIdentificationTriggered, html.darkMode {
+    --color-background: #161719;
+    --color-text: #fff;
+    --color-light-grey: #2c2c2e;
+    --color-light-grey-darken: #3a3a3c;
+    --color-dark-grey: #636366;
+    --color-dark-grey: #8e8e93; }
 
 body {
   margin: 0;
   padding: 0;
   font-size: 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; }
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background: var(--color-background);
+  color: var(--color-text);
+  -webkit-transition: all .5s ease 0s;
+  transition: all .5s ease 0s; }
 
 p {
   margin: 0; }
@@ -84,7 +97,7 @@ header {
             align-items: center;
     text-align: center;
     background: white;
-    color: black !important;
+    color: var(--color-text);
     border: 4px solid; }
 
 main {
@@ -157,17 +170,21 @@ footer {
       -webkit-transform: translate3d(0, 30px, 0);
               transform: translate3d(0, 30px, 0);
       opacity: 0;
-      -webkit-transition: all cubic-bezier(0, 0, 0.15, 0.96) 0.5s;
-      transition: all cubic-bezier(0, 0, 0.15, 0.96) 0.5s;
+      color: var(--color-text);
+      -webkit-transition: all 0.5s cubic-bezier(0, 0, 0.15, 0.96) 0s, background 0.5s ease 0s, color 0.5s ease 0s;
+      transition: all 0.5s cubic-bezier(0, 0, 0.15, 0.96) 0s, background 0.5s ease 0s, color 0.5s ease 0s;
       cursor: -webkit-grab;
       cursor: grab;
       -webkit-user-select: none;
          -moz-user-select: none;
           -ms-user-select: none;
               user-select: none;
-      /* Required to make elements draggable in old WebKit */
       -khtml-user-drag: element;
       -webkit-user-drag: element; }
+      .deviceIdentificationTriggered footer .connectedDevices .device {
+        background: var(--color-light-grey-darken);
+        -webkit-box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); }
       footer .connectedDevices .device:hover, footer .connectedDevices .device.show:hover {
         -webkit-box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
                 box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);

@@ -7,14 +7,14 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
   </head>
   <body>
-    <header>
+    <!-- <header>
       <div class="userCount">
         <span id="userCountDisplay"></span>
       </div>
       <div class="user">
         <span id="userDisplay"></span>
       </div>
-    </header>
+    </header> -->
 
     <div class="background-stripes">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4137.98528 1137.98528">
@@ -471,33 +471,29 @@
       import UserManagement from '/modules/userManagement.mjs';
       import DeviceMotion from '/modules/deviceMotion.mjs';
       import DeviceIdentification from '/modules/deviceIdentification.mjs';
+      import * as Utils from '/modules/utils.mjs';
 
       const debug = true;
+      const deviceType = Utils.detectDeviceType();
+      console.log(deviceType);
 
-      const socket = io();
+      const socket = io({
+                      transportOptions: {
+                        polling: {
+                          extraHeaders: {
+                            'deviceType': deviceType,
+                          },
+                        },
+                      },
+                    });
+
       const userManagement = new UserManagement(socket, debug);
       const deviceMotion = new DeviceMotion();
-      const deviceIdentification = new DeviceIdentification();
+      const deviceIdentification = new DeviceIdentification(socket, debug);
 
       userManagement.initListeners();
       deviceMotion.initListeners();
       deviceIdentification.initListeners();
-
-      /**
-       * update client user id on page
-       */
-      socket.on('clientData', (data) => {
-        const clientId = data.socketId;
-        const clientNumberId = data.numberId;
-        const clientColor = data.color;
-
-        document.querySelector('.user').title = clientId;
-        document.querySelector('.user').innerHTML = clientNumberId;
-        document.querySelector('.user').style.borderColor = clientColor;
-        document.querySelector('.user').style.color = clientColor;
-        
-        console.log(`user id: ${data.socketId}`);
-      });
     </script>
   </body>
 </html>

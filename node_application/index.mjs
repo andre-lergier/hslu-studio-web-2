@@ -8,17 +8,14 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
 import { isIos, getRandomColor, removeElementFromArray } from './static/modules/utils.mjs';
+import { identifyClient } from './static/modules/deviceIdentificationServer.mjs';
+import { resolve } from 'dns';
+import { rejects } from 'assert';
 
 const app = express();
 const httpServer = http.createServer(app);
 const __filename = fileURLToPath(import.meta.url); // variable mit absolutem pfad zu aktueller datei, inkl. filename
 const __dirname = dirname(__filename); // __dirname ist bei neuer Node-Version nicht mehr definiert! daher muss diese neu "kreiert" werden
-
-/* ssl
-const privateKey = fs.readFileSync('/Users/andrelergier/.localhost-ssl/localhost.key', 'utf8');
-const certificate = fs.readFileSync('/Users/andrelergier/.localhost-ssl/localhost.crt', 'utf8');
-const credentials = { key: privateKey, cert: certificate };
-const httpsServer = https.createServer(credentials, app); */
 
 const io = socketIo(httpServer);
 app.use(express.static(`static`)); // ${__dirname}/
@@ -37,23 +34,18 @@ let userNumberIdCounter = 0;
 /**
  * socket ist "user", der etwas auslöst
  * io ist server
- *
- * @events
- * - 'clientData': send info to logged in user
- * - 'userConnectUpdate': send informations to all users
- * - 'userDisconnectUpdate'
  */
 io.on('connection', (socket) => {
   userNumberIdCounter++;
-
-  let color = getRandomColor();
-
   console.log(`user ${socket.id} got numberId ${userNumberIdCounter}`)
 
-  let newConnectedUser = {
+  const color = getRandomColor();
+  const deviceType = socket.handshake.headers.devicetype;
+  const newConnectedUser = {
     socketId: socket.id,
     numberId: userNumberIdCounter,
     color,
+    deviceType,
   }
 
   // inform client about himself
@@ -71,6 +63,47 @@ io.on('connection', (socket) => {
     userOrder,
   });
 
+  socket.on('orderUpdate', (newOrder) => {
+    userOrder = newOrder;
+
+    // send update to all other users
+    socket.broadcast.emit('orderUpdate', userOrder); // io.emit('orderUpdate', userOrder)
+  });
+
+  socket.on('identifyDevicesStartTrigger', async () => {
+    io.emit('identifyDevicesTriggered', socket.id);
+
+    /**
+     * socket: client who sent trigger
+     */
+    console.log(`identify started from (socket.id) ${socket.id}`);
+
+    identifyClient(io, socket, userOrder[0], 1);
+    
+    /**
+     * code according to identifyClientOld from deviceIdentificationServer.mjs
+     * attention: add async to callback of socket.on(...
+     *//*
+    for (const [index, value] of userOrder.entries()) {
+      const user = connectedUsers.get(value);
+      const userPosition = index + 1;
+
+      await identifyClient.bind(this)(io, socket, user.socketId, userPosition);
+    } */
+
+    console.log('all sent');
+  });
+
+  socket.on('identifyDeviceReply', () => {
+    const indexOrderOfRepliedId = userOrder.indexOf(socket.id);
+
+    if(indexOrderOfRepliedId < userOrder.length - 1) {
+      identifyClient(io, socket, userOrder[indexOrderOfRepliedId + 1], indexOrderOfRepliedId + 2);
+    } else {
+      io.emit('identifyDevicesFinished');
+    }
+  });
+
   socket.on('disconnect', () => {
     let deletedNumberId;
 
@@ -83,25 +116,20 @@ io.on('connection', (socket) => {
         break;
       }
     }
-
-    console.log(`now connected: ${connectedUsers.size}`);
-
+    
     let deletedUser = {
       socketId: socket.id,
       deletedNumberId: deletedNumberId,
     };
-
+    
     io.emit('userDisconnectUpdate', {
       deletedUser,
       userOrder,
     });
-  });
 
-  socket.on('orderUpdate', (newOrder) => {
-    userOrder = newOrder;
-
-    // send update to all other users
-    socket.broadcast.emit('orderUpdate', userOrder); // io.emit('orderUpdate', userOrder)
+    if (connectedUsers.size === 0) {
+      userNumberIdCounter = 0;
+    }
   });
 });
 

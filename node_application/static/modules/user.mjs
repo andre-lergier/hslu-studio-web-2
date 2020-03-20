@@ -1,8 +1,9 @@
 export default class User {
-  constructor(id, numberId, color, isCurrentClient) {
+  constructor(id, numberId, color, deviceType, isCurrentClient) {
     this.socketId = id;
     this.numberId = numberId;
     this.color = color;
+    this.deviceType = deviceType;
     this.isCurrentClient = isCurrentClient;
 
     this.userElementsContainer = '.connectedDevices';
@@ -40,8 +41,8 @@ export default class User {
     const deviceIcon = this.randomDeviceIcon();
     const userHtml = `
       <div class="userHeader">  
-        <img class="deviceIcon" draggable="false" src="/icons/${deviceIcon}">
-        <div class="userColorDot" style="background:${this.color}">${this.numberId}</div>
+        <img class="deviceIcon" draggable="false" src="/icons/${this.deviceType}.svg">
+        <div class="userColorDot" style="background:${this.color}"></div>
       </div>
       <p class="userName" style="border-color:${this.color};">User ${this.numberId}</p>`;
     userNode.innerHTML = userHtml;

@@ -31,6 +31,7 @@ export default class UserManagement {
       data.newConnectedUser.socketId,
       data.newConnectedUser.numberId,
       data.newConnectedUser.color,
+      data.newConnectedUser.deviceType,
       isCurrentClient,
     );
 
@@ -61,6 +62,7 @@ export default class UserManagement {
             value.socketId, // key
             value.numberId,
             value.color,
+            value.deviceType,
             false,
           );
 
