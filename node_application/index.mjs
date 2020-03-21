@@ -7,8 +7,8 @@ import socketIo from 'socket.io';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
-import { isIos, getRandomColor, removeElementFromArray } from './static/modules/utils.mjs';
-import { identifyClient } from './static/modules/deviceIdentificationServer.mjs';
+import { isIos, getRandomColor, removeElementFromArray } from './src/js/modules/utils.mjs';
+import { identifyClient } from './src/js/modules/deviceIdentificationServer.mjs';
 import { resolve } from 'dns';
 import { rejects } from 'assert';
 
@@ -18,10 +18,10 @@ const __filename = fileURLToPath(import.meta.url); // variable mit absolutem pfa
 const __dirname = dirname(__filename); // __dirname ist bei neuer Node-Version nicht mehr definiert! daher muss diese neu "kreiert" werden
 
 const io = socketIo(httpServer);
-app.use(express.static(`static`)); // ${__dirname}/
+app.use(express.static(`dist`)); // ${__dirname}/
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(`${__dirname}/index.html`));
+  res.sendFile(path.join(`${__dirname}/dist/index.html`));
 });
 
 const connectedUsers = new Map();

@@ -103,10 +103,6 @@ header{
   }
 }
 
-main{
-  padding-top:100px;
-}
-
 #enableMotionTracking{
   opacity: 0;
 
@@ -115,10 +111,24 @@ main{
   }
 }
 
+#playground{
+  display: block;
+  width:100%;
+  height: calc(100vh - #{$connectedDevicesHeight});
+  overflow: hidden;
+
+  .ball{
+    display: block;
+    border-radius: 50%;
+    background: var(--color-primary);
+  }
+}
+
 .identifyContainer{
   position: fixed;
   top: 0;
   left:0;
+  z-index:-1;
   height: calc(100% - #{$connectedDevicesHeight});
   width: 100%;
   display: flex;
@@ -128,6 +138,12 @@ main{
   text-align: center;
 }
 
+/**
+ * the following effect classes can be applied to this element
+ * - blurEffect
+ * - translateMoveY
+ * - translateMoveX
+ */
 .identifyWrapper{
   transform: translateY(-.5rem);
 }
@@ -138,14 +154,20 @@ main{
   font-variant-numeric: 'lnum';
   font-feature-settings: 'lnum', 'pnum';
   font-weight: 600;
+  opacity: 0;
   overflow: hidden;
+  
+  #identifyDeviceNumber{
+    display: block;
+    transform: translateY(-4rem);
+  }
 
   .blurEffect &{
     filter: blur(30px);
     transform: translate3d(0, 20%, 0);
     transform: scale3d(0.5, 0.5, 0.5);
     opacity: 0;
-    transition: all .8s cubic-bezier(0.11, 0.65, 0.34, 0.96) 0s;
+    transition: all 0s ease 0s;
 
     .identifyIn &{
       filter: blur(0px);
@@ -159,10 +181,8 @@ main{
       transform: scale3d(1.5, 1.5, 1.5);
     }
   }
-
-  #identifyDeviceNumber{
-    display: block;
-    transform: translateY(-4rem);
+  .blurEffect.animationEnabled & {
+    transition: all .8s cubic-bezier(0.11, 0.65, 0.34, 0.96) 0s;
   }
 }
 
@@ -170,6 +190,30 @@ main{
   font-size:3rem;
   line-height:1;
   overflow: hidden;
+  opacity: 0;
+
+  #identifyDeviceText{
+    display: block;
+  }
+
+  .blurEffect &{
+    transform: translate3d(0, 100%, 0);
+    opacity: 0;
+    transition: all 0s ease 0s;
+
+    .identifyIn &{
+      transform: translate3d(0, 0%, 0);
+      opacity: 1;
+    }
+
+    .identifyOut &{
+      opacity: 0;
+      transform: translate3d(0, 0%, 0);
+    }
+  }
+  .blurEffect.animationEnabled & {
+    transition: all .5s cubic-bezier(0.11, 0.65, 0.34, 0.96) 0s;
+  }
 }
 
 footer{
@@ -184,6 +228,14 @@ footer{
     display: flex;
     justify-content: flex-end;
     padding: 25px;
+    position: relative;
+    z-index: -1;
+
+    .button{
+      .deviceIdentificationTriggered &{
+        transform: translateY(200%);
+      }
+    }
   }
 
   .connectedDevices{
@@ -285,6 +337,14 @@ footer{
         height: 30px;
         max-width: 35px;
         user-select: none;
+
+        path{
+          fill: var(--color-dark-grey);
+
+          .deviceIdentificationTriggered &, .darkMode &{
+            fill: white;
+          }
+        }
       }
 
       .userColorDot{

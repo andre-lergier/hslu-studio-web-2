@@ -3,11 +3,13 @@
   "author": "André Lergier",
   "version": "0.0.1",
   "description": "my first socket.io app",
-  "type": "module",
   "scripts": {
-    "start": "node index.mjs",
-    "dev": "nodemon index.mjs"
+    "dev": "nodemon index.mjs",
+    "build": "webpack --config ./config/webpack.prod.cjs",
+    "watch": "webpack --watch --config ./config/webpack.dev.cjs & npm run dev",
+    "start": "npm run build && node index.mjs"
   },
+  "type": "module",
   "engines": {
     "node": "13.9.x"
   },
@@ -18,7 +20,7 @@
       "node": true
     },
     "extends": [
-      "airbnb-base"
+      "airbnb"
     ],
     "plugins": [],
     "rules": {
@@ -38,9 +40,31 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.4.2",
     "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-import": "^2.20.1",
-    "nodemon": "^2.0.2"
-  }
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.13.1",
+    "nodemon": "^2.0.2",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3",
+    "webpack-merge": "^4.2.2"
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }

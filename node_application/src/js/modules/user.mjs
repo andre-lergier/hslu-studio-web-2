@@ -1,4 +1,4 @@
-// import inlineSVG from 'inline-svg';
+import inlineSVG from 'inline-svg';
 // import inlineSVG from './inlineSVG.mjs';
 
 export default class User {
@@ -44,7 +44,7 @@ export default class User {
     const deviceIcon = this.randomDeviceIcon();
     const userHtml = `
       <div class="userHeader">  
-        <img class="deviceIcon" draggable="false" src="/icons/${this.deviceType}.svg">
+        <img class="deviceIcon replaceWithInlineSVG" draggable="false" src="/static/icons/${this.deviceType}.svg">
         <div class="userColorDot" style="background:${this.color}"></div>
       </div>
       <p class="userName" style="border-color:${this.color};">User ${this.numberId}</p>`;
@@ -57,12 +57,12 @@ export default class User {
       }, 500);
     }
 
-    /*inlineSVG.init({
-      svgSelector: '.deviceIcon', // the class attached to all images that should be inlined
+    inlineSVG.init({
+      svgSelector: '.replaceWithInlineSVG', // the class attached to all images that should be inlined
       initClass: 'js-inlinesvg', // class added to <html>
-    }, function () {
-      console.log('All SVGs inlined');
-    });*/
+    }, () => {
+      document.querySelector('.replaceWithInlineSVG').classList.remove('replaceWithInlineSVG');
+    });
   }
 
   /**
