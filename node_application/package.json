@@ -7,7 +7,8 @@
     "dev": "nodemon index.mjs",
     "build": "webpack --config ./config/webpack.prod.cjs",
     "watch": "webpack --watch --config ./config/webpack.dev.cjs & npm run dev",
-    "start": "npm run build && node index.mjs"
+    "buildStart": "npm run build && node index.mjs",
+    "start": "node index.mjs"
   },
   "type": "module",
   "engines": {
