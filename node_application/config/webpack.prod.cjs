@@ -1,31 +1,20 @@
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
 
 // relative imports danach
 const common = require('./webpack.common.cjs'); // (relativer Pfad)
 
 module.exports = merge(common, {
   mode: 'production',
-  
-  /* module: {
-    rules: [
-      {
-        test: /\.css$/i,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: '/css',
-            },
-          },
-          'sass-loader',
-          'css-loader',
-          'postcss-loader',
-        ],
-      },
+
+  optimization: {
+    minimizer: [
+      new TerserJSPlugin({}),
+      new OptimizeCSSAssetsPlugin({})
     ],
-  }, */
+  },
 
   plugins: [
     new HtmlWebpackPlugin({
@@ -45,8 +34,5 @@ module.exports = merge(common, {
         minifyURLs: true,
       },
     }),
-    // new MiniCssExtractPlugin({
-    //   filename: '[name].bundle.css',
-    // })
   ],
 });

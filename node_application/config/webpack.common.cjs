@@ -1,16 +1,16 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const webpack = require('webpack'); // to access built-in plugins
 
 module.exports = {
   entry: {
     main: './src/js/index.js',
-    style: './src/scss/style.scss',
   },
 
   output: {
-    filename: '[name].js',
+    filename: 'js/[name].js',
     path: path.resolve(__dirname, '../dist'), // legt Ordner fest --> __dirname ist aktueller Ordner(config)
     publicPath: '/',
   },
@@ -33,17 +33,30 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader, // 'style-loader' dev mode with inline styles
           {
             loader: 'css-loader',
             options: {
-              // sourceMap: true,
+              sourceMap: true,
             },
           },
+          /*{
+            loader: 'postcss-loader',
+            /*options: {
+              config: {
+                path: './config',
+                ctx: {
+                  file: {
+                    extname: '.cjs',
+                  }
+                },
+              },
+            },
+          },*/
           {
             loader: 'sass-loader',
             options: {
-              // sourceMap: true,
+              sourceMap: true,
               sassOptions: {
                 outputStyle: 'compressed',
               },
@@ -57,11 +70,30 @@ module.exports = {
 
   plugins: [
     new CleanWebpackPlugin(),
-    // copy files into dist folder
     new CopyPlugin([ {
         from: 'static/**/*', 
         to: '.',
        },
     ], { copyUnmodified: true }),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css',
+    }),
   ],
 };
+
+/**
+ * CleanWebpackPlugin:
+ * - deletes dist folder after every change
+ * 
+ * CopyPlugin
+ * - copy files from static into dist folder
+ * 
+ * MiniCssExtractPlugin
+ * - helps to extract css to separate files
+ * 
+ * 
+ * loaders:
+ * - MiniCssExtractPlugin.loader for external css file
+ * - OR style-loader for inline css
+ * - postcss-loader z.B. for autoprefixer
+ */

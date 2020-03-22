@@ -5,6 +5,8 @@ import DeviceIdentification from './modules/deviceIdentification.mjs';
 import Animation from './modules/animation.mjs';
 import * as Utils from './modules/utils.mjs';
 
+import '../scss/style.scss';
+
 const debug = true;
 const deviceType = Utils.detectDeviceType();
 console.log(deviceType);
