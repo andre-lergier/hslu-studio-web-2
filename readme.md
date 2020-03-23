@@ -56,7 +56,7 @@ Enter passphrase for key
 ### Initialize VM
 I use an Ubuntu VM on [DigitalOcean](https://m.do.co/c/404a0f0fcd1d). 
 
-#### install docker
+#### Install docker
 ```zsh
 apt install docker.io
 apt install docker-compose
@@ -150,7 +150,7 @@ To generate the repeat time, check this [fancy time repeat generator](https://cr
 */2 * * * * /root/hslu-studio-web-2/ssl_renew.sh >> /var/log/cron.log 2>&1
 ```
 
-Later change to `0 0 * * *`. This runs the `.sh`script every day at 00:00:
+Later change to `0 0 * * *`. This runs the `.sh` script every day at 00:00:
 ```zsh
 0 0 * * * /root/hslu-studio-web-2/ssl_renew.sh >> /var/log/cron.log 2>&1
 ```
@@ -171,5 +171,7 @@ Later change to `0 0 * * *`. This runs the `.sh`script every day at 00:00:
 
 ## Webpack
 #### Loaders:
-- [postcss-loader](https://github.com/postcss/postcss-loader)
-  - [Autoprefixer](https://github.com/postcss/autoprefixer)
+- sass-loader: https://webpack.js.org/loaders/sass-loader/
+- MiniCssExtractPlugin: https://webpack.js.org/plugins/mini-css-extract-plugin/
+- postcss-loader: https://github.com/postcss/postcss-loader
+  - Autoprefixer: https://github.com/postcss/autoprefixer
