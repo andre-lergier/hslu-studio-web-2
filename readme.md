@@ -1,8 +1,10 @@
-## Docker
-Configuration tutorial: https://www.digitalocean.com/community/tutorials/how-to-secure-a-containerized-node-js-application-with-nginx-let-s-encrypt-and-docker-compose
-Another nice tutorial: https://www.digitalocean.com/community/tutorials/how-to-build-a-node-js-application-with-docker
+# Docker
+- [Configuration tutorial](https://www.digitalocean.com/community/tutorials/how-to-secure-a-containerized-node-js-application-with-nginx-let-s-encrypt-and-docker-compose)
+- [Another nice tutorial](https://www.digitalocean.com/community/tutorials/how-to-build-a-node-js-application-with-docker)
 
-#### run just node image
+## Notes to Docker installation & useful commands
+### Docker
+#### Run just node image
 ```zsh
 docker build -t node-socket-io . #image dockerfile wird aufgerufen und image erhält namen node-socket-io
 docker images #show all images
@@ -12,7 +14,7 @@ docker system prune # restart all
 docker system prune -a
 ```
 
-##### Stop container
+#### Stop container
 Show all running containers
 ```zsh
 docker ps #fdd49939c22d
@@ -35,12 +37,12 @@ ls
 ls -al ~/.ssh
 ```
 
-Generate key pair
+#### Generate key pair
 ```zsh
 ssh-keygen -t rsa -b 4096 -C "andre@lergier.ch"
 ```
 
-Key anzeigen
+#### Key anzeigen
 ```zsh
 cat ~/.ssh/id_rsa.pub 
 ```
@@ -51,15 +53,17 @@ ssh root@167.172.188.13
 ```
 Enter passphrase for key
 
-### init vm
-- install docker
+### Initialize VM
+I use an Ubuntu VM on [DigitalOcean](https://m.do.co/c/404a0f0fcd1d). 
+
+#### install docker
 ```zsh
 apt install docker.io
 apt install docker-compose
 ```
 if this doesn't work: https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
-### start docker
+### Use docker-compose
 To start the webserver simply run the following command on the root directory of the git repo on the server.
 ```zsh
 docker-compose up
@@ -100,7 +104,7 @@ drwxr-xr-x    9 root     root          4096 Mar 11 09:50 ..
 drwxr-xr-x    2 root     root          4096 Mar 11 09:47 studio-web-2.hslu.lergier.ch
 ```
 
-Rebuild just the certbot
+Rebuild just one image (in this case certbot)
 ```zsh
 docker-compose up --force-recreate --no-deps certbot
 ```
@@ -131,7 +135,7 @@ Only on Server:
 sudo openssl dhparam -out /root/hslu-studio-web-2/dhparam/dhparam-2048.pem 2048
 ```
 
-## Renew SSL
+### Renew SSL
 Commands to run on VM
 ```zsh
 chmod +x ssl_renew.sh
@@ -141,12 +145,12 @@ chmod +x ssl_renew.sh
 sudo crontab -e
 ```
 
-Fancy time repeat generator: https://crontab.guru/#0_0_*_*_*
+To generate the repeat time, check this [fancy time repeat generator](https://crontab.guru/#0_0_*_*_*)
 ```zsh
 */2 * * * * /root/hslu-studio-web-2/ssl_renew.sh >> /var/log/cron.log 2>&1
 ```
 
-later change to:
+Later change to `0 0 * * *`. This runs the `.sh`script every day at 00:00:
 ```zsh
 0 0 * * * /root/hslu-studio-web-2/ssl_renew.sh >> /var/log/cron.log 2>&1
 ```
@@ -158,8 +162,14 @@ later change to:
   - DataTransfer getData: https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/getData
 - Pointer Events: https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
 
+
 ## Diverses
 - Drag and Drop Tutorial: https://www.html5rocks.com/de/tutorials/dnd/basics/
 - Pointer Events: https://patrickhlauke.github.io/touch/tracker/multi-touch-tracker-pointer-hud.html
 - Sortable.js: https://github.com/SortableJS/Sortable
 - Heroku deploy Subdirectory: https://github.com/timanovsky/subdir-heroku-buildpack
+
+## Webpack
+#### Loaders:
+- [postcss-loader](https://github.com/postcss/postcss-loader)
+  - [Autoprefixer](https://github.com/postcss/autoprefixer)

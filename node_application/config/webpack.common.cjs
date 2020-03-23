@@ -40,19 +40,14 @@ module.exports = {
               sourceMap: true,
             },
           },
-          /*{
+          {
             loader: 'postcss-loader',
-            /*options: {
-              config: {
-                path: './config',
-                ctx: {
-                  file: {
-                    extname: '.cjs',
-                  }
-                },
-              },
+            options: {
+              plugins: [
+                require('autoprefixer'),
+              ]
             },
-          },*/
+          },
           {
             loader: 'sass-loader',
             options: {
