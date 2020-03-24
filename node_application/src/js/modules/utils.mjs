@@ -1,3 +1,22 @@
+/**
+ * like jquery documen.ready
+ */
+export const ready = (fn) => {
+  if (document.readyState != 'loading') {
+    fn();
+  } else if (document.addEventListener) {
+    document.addEventListener('DOMContentLoaded', fn);
+  } else {
+    document.attachEvent('onreadystatechange', function() {
+      if (document.readyState != 'loading')
+        fn();
+    });
+  }
+}
+
+/**
+ * returns random hex color
+ */
 export const getRandomColor = () => {
   const letters = '0123456789ABCDEF';
   let color = '#';
@@ -6,6 +25,15 @@ export const getRandomColor = () => {
   }
   return color;
 };
+
+export const getRandomArrayValue = (array) => {
+  return array[getRandomArrayIndex(array)];
+}
+
+export const getRandomArrayIndex = (array) => {
+  return Math.floor(Math.random() * array.length);
+}
+
 
 /**
  * check if iOS device

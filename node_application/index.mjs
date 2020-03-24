@@ -63,6 +63,10 @@ io.on('connection', (socket) => {
     userOrder,
   });
 
+
+  /**
+   * Order Update
+   */
   socket.on('orderUpdate', (newOrder) => {
     userOrder = newOrder;
 
@@ -70,28 +74,17 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('orderUpdate', userOrder); // io.emit('orderUpdate', userOrder)
   });
 
+
+  /**
+   * Identify Devices
+   */
   socket.on('identifyDevicesStartTrigger', async () => {
+    // notify clients that identify was triggered -> enable darkmode
     io.emit('identifyDevicesTriggered', socket.id);
 
-    /**
-     * socket: client who sent trigger
-     */
-    console.log(`identify started from (socket.id) ${socket.id}`);
-
+    // trigger first device (socket: client who sent trigger)
+    console.log(`identify started from ${socket.id}`);
     identifyClient(io, socket, userOrder[0], 1);
-    
-    /**
-     * code according to identifyClientOld from deviceIdentificationServer.mjs
-     * attention: add async to callback of socket.on(...
-     *//*
-    for (const [index, value] of userOrder.entries()) {
-      const user = connectedUsers.get(value);
-      const userPosition = index + 1;
-
-      await identifyClient.bind(this)(io, socket, user.socketId, userPosition);
-    } */
-
-    console.log('all sent');
   });
 
   socket.on('identifyDeviceReply', () => {
@@ -104,6 +97,41 @@ io.on('connection', (socket) => {
     }
   });
 
+
+  /**
+   * Ball
+   */
+  socket.on('ballLeave', (data) => {
+    const justLeftClient = socket.id;
+    const userOrderIndex = userOrder.indexOf(justLeftClient);
+    const direction = data.side;
+    let nextClientIndex;
+
+    if(direction === 'right') {
+      // if last element, return first
+      if(userOrderIndex >= userOrder.length - 1) {
+        nextClientIndex = 0;
+      } else {
+        nextClientIndex = userOrderIndex + 1;
+      }
+    } else if (direction === 'left'){
+      if(userOrderIndex === 0) {
+        nextClientIndex = userOrder.length - 1;
+      } else {
+        nextClientIndex = userOrderIndex - 1;
+      }
+    }
+
+    const nextClientId = userOrder[nextClientIndex];
+    io.to(nextClientId).emit('ballEnter', data);
+
+    // console.log('ballLeaveEvent! next client =' + nextClientId);
+  });
+
+
+  /**
+   * Disconnect
+   */
   socket.on('disconnect', () => {
     let deletedNumberId;
 

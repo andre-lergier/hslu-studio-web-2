@@ -3,7 +3,6 @@
 - [Another nice tutorial](https://www.digitalocean.com/community/tutorials/how-to-build-a-node-js-application-with-docker)
 
 ## Notes to Docker installation & useful commands
-### Docker
 #### Run just node image
 ```zsh
 docker build -t node-socket-io . #image dockerfile wird aufgerufen und image erhält namen node-socket-io

@@ -8,8 +8,9 @@ import * as Utils from './modules/utils.mjs';
 import '../scss/style.scss';
 
 const debug = true;
+window.debug = debug;
+
 const deviceType = Utils.detectDeviceType();
-console.log(deviceType);
 
 const socket = io({
                 transportOptions: {
@@ -22,12 +23,11 @@ const socket = io({
               });
 
 const userManagement = new UserManagement(socket, debug);
-const deviceMotion = new DeviceMotion();
 const deviceIdentification = new DeviceIdentification(socket, debug);
 
 const playground = document.querySelector('#playground');
-const animation = new Animation(playground);
+const animation = new Animation(socket, playground, debug);
 
 userManagement.initListeners();
-// deviceMotion.initListeners();
 deviceIdentification.initListeners();
+animation.init();
