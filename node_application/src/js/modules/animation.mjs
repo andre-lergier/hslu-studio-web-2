@@ -1,10 +1,18 @@
 import Ball from "./ball.mjs";
 
 export default class Animation {
-  constructor(socket, playground, debug) {
+  constructor(socket, playground, playMode, debug) {
+    /**
+     * playMode:
+     * - 1: single ball in first device
+     * - 2: random  balls to right side
+     * - 3: random balls, random direction
+     */
+
     this.socket = socket;
-    this.debug = debug;
     this.playground = playground;
+    this.playMode = playMode;
+    this.debug = debug;
     this.playgroundWidth = null;
     this.playgroundHeight = null;
     this.balls = new Set();
@@ -14,6 +22,9 @@ export default class Animation {
 
   init() {
     this.initListeners();
+
+    // if(this.playMode != 1){
+    // }
     this.addRandomCenteredBall();
   }
 
@@ -59,19 +70,22 @@ export default class Animation {
     const xCenter = (this.playgroundWidth / 2) - ballRadius;
     const yCenter = (this.playgroundHeight / 2) - ballRadius;
 
-    let randomPlusMinus1 = Math.floor(Math.random()*2) == 1 ? 1 : -1;
-    let randomPlusMinus2 = Math.floor(Math.random()*2) == 1 ? 1 : -1;
-    randomPlusMinus1 = 1;
-    randomPlusMinus2 = 1;
+    let directionX = Math.floor(Math.random()*2) == 1 ? 1 : -1;
+    let directionY = Math.floor(Math.random()*2) == 1 ? 1 : -1;
+
+    if (this.playMode == 1){
+      directionX = 0;
+      directionY = 0;
+    } else if (this.playMode == 2){
+      directionX = 1;
+    }
 
     const ball = new Ball({
       radius: ballRadius,
       x: xCenter,
       y: yCenter,
-      // vx: Math.random() * 3 * randomPlusMinus1,
-      vx: 2,
-      vy: Math.random() * 3 * randomPlusMinus2,
-      // vy: 4,
+      vx: Math.random() * 3 * directionX,
+      vy: Math.random() * 3 * directionY,
     }, this);
     
     this.addBall(ball);

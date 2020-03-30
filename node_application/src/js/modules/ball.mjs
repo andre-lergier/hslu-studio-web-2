@@ -35,6 +35,7 @@ export default class Ball {
     this.playgroundX = null;
     this.playgroundY = null;
     this.startTime = null;
+    this.reAnFrAnimation = null;
 
     this.colors = [
       '#538797',
@@ -47,6 +48,13 @@ export default class Ball {
     if(!this.color){
       this.color = Utils.getRandomArrayValue(this.colors);
     }
+
+    this.pointerStarted = false;
+    this.pointerDownEvent = null;
+    this.pointerMoveLastX = 0;
+    this.pointerMoveLastY = 0;
+    this.pointerMoveLastDX = 0;
+    this.pointerMoveLastDY = 0;
   }
 
   addToPlayground(playground) {
@@ -145,11 +153,15 @@ export default class Ball {
 
     this.ballElement.style.transform = `translate3d(${this.x}px, ${this.y}px, 0)`;
 
-    window.requestAnimationFrame(this.animate.bind(this));
+    this.reAnFrAnimation = window.requestAnimationFrame(this.animate.bind(this));
   }
 
   triggerAnimation() {
-    window.requestAnimationFrame(this.animate.bind(this));
+    this.reAnFrAnimation = window.requestAnimationFrame(this.animate.bind(this));
+  }
+
+  stopAnimation() {
+    cancelAnimationFrame(this.reAnFrAnimation);
   }
 
   /**
@@ -200,26 +212,66 @@ export default class Ball {
    * Pointer Events
    */
   onPointerDownHandler(e) {
-    console.log('onPointerDownHandler');
-    console.log(e);
+    this.stopAnimation();
+
+    this.pointerDownEvent = e;
+    this.pointerStarted = true;
+
+    this.pointerMoveLastX = e.clientX;
+    this.pointerMoveLastY = e.clientY;
+
+    if(this.debug) console.table({
+      x: e.clientX,
+      y: e.clientY,
+    })
   }
 
   onPointerMoveHandler(e) {
-    console.log('onPointerMoveHandler');
-    console.log(e);
+    if (this.pointerStarted) {
+      if(e.buttons === 1) {
+        const clientX = e.clientX;
+        const clientY = e.clientY;
+
+        const movedX = clientX - this.pointerMoveLastX;
+        const movedY = clientY - this.pointerMoveLastY;
+
+        this.setPosition(this.x + movedX, this.y + movedY);
+
+        this.pointerMoveLastX = clientX;
+        this.pointerMoveLastY = clientY;
+        this.pointerMoveLastDX = movedX;
+        this.pointerMoveLastDY = movedY;
+      
+        if(this.debug) console.table({
+          mx: movedX,
+          my: movedY,
+        });
+      }
+    }
   }
 
   onPointerUpHandler(e) {
-    console.log('onPointerUpHandler');
-    console.log(e);
+    this.pointerStarted = false;
+
+    this.vx = this.pointerMoveLastDX;
+    this.vy = this.pointerMoveLastDY;
+
+    this.triggerAnimation();
+
+    if(this.debug) console.table({
+      pointerMoveLastDX: this.pointerMoveLastDX,
+      pointerMoveLastDY: this.pointerMoveLastDY,
+      clientX,
+      clientY,
+    });
   }
 
 
   initPointerListeners() {
     // console.log('listeners initialized');
     // console.log(this.ballElement);
-    this.ballElement.addEventListener('onpointerdown', this.onPointerDownHandler.bind(this));
-    this.ballElement.addEventListener('onpointermove', this.onPointerMoveHandler.bind(this));
-    this.ballElement.addEventListener('onpointerup', this.onPointerUpHandler.bind(this));
+    this.ballElement.addEventListener('pointerdown', this.onPointerDownHandler.bind(this));
+    this.ballElement.addEventListener('pointermove', this.onPointerMoveHandler.bind(this));
+    this.ballElement.addEventListener('pointerup', this.onPointerUpHandler.bind(this));
   }
 }

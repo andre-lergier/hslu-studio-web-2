@@ -26,7 +26,7 @@ const userManagement = new UserManagement(socket, debug);
 const deviceIdentification = new DeviceIdentification(socket, debug);
 
 const playground = document.querySelector('#playground');
-const animation = new Animation(socket, playground, debug);
+const animation = new Animation(socket, playground, 1, debug);
 
 userManagement.initListeners();
 deviceIdentification.initListeners();

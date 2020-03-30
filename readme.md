@@ -160,6 +160,8 @@ Later change to `0 0 * * *`. This runs the `.sh` script every day at 00:00:
 - HTML Drag and Drop API: https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
   - DataTransfer getData: https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/getData
 - Pointer Events: https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
+- RequestAnimationFrame: https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+  - Tutorial: https://www.mediaevent.de/javascript/requestAnimationFrame.html
 
 
 ## Diverses
