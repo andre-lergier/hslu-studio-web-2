@@ -171,7 +171,6 @@ header{
 
 .identifyContainer{
   position: fixed;
-  z-index: 1;
   top: 0;
   left:0;
   z-index:-1;
@@ -182,6 +181,10 @@ header{
   align-items: center;
   font-family: var(--font-serif);
   text-align: center;
+
+  &.identifyIn, &.identifyOut{
+    z-index:1;
+  }
 }
 
 /**
@@ -214,6 +217,41 @@ header{
     @media (max-width: $screen-sm-max) {
       transform: translateY(-1.5rem);
     }
+
+    .verticalShiftEffect & {
+      transform: translateY(-4rem) translate3d(0,100%,0);
+
+      @media (max-width: $screen-sm-max) {
+        transform: translateY(-1.5rem) translate3d(0,100%,0);
+      }
+
+      .identifyIn &{
+        transform: translateY(-4rem) translate3d(0,0%,0);
+
+        @media (max-width: $screen-sm-max) {
+          transform: translateY(-1.5rem) translate3d(0,0%,0);
+        }
+      }
+  
+      .identifyOut &{
+        transform: translateY(-4rem) translate3d(0,-100%,0);
+
+        @media (max-width: $screen-sm-max) {
+          transform: translateY(-1.5rem) translate3d(0,-100%,0);
+        }
+      }
+    }
+    .verticalShiftEffect.animationEnabled & {
+      transition: all 0.6s cubic-bezier(0.11, 0.62, 0.42, 0.98) 0s;
+
+      .identifyOut & {
+        transition: all 0.6s cubic-bezier(0.62, 0.09, 0.89, 0.46) 0s;
+      }
+    }
+  }
+
+  .verticalShiftEffect &{
+    opacity: 1;
   }
 
   .blurEffect &{
@@ -236,7 +274,7 @@ header{
     }
   }
   .blurEffect.animationEnabled & {
-    transition: all .8s cubic-bezier(0.11, 0.65, 0.34, 0.96) 0s;
+    transition: all .6s cubic-bezier(0.11, 0.65, 0.34, 0.96) 0s;
   }
 }
 
@@ -252,6 +290,30 @@ header{
 
   #identifyDeviceText{
     display: block;
+
+    .verticalShiftEffect & {
+      transform: translate3d(0,100%,0);
+
+      .identifyIn &{
+        transform: translate3d(0,0%,0);
+      }
+  
+      .identifyOut &{
+        transform: translate3d(0,-100%,0);
+      }
+    }
+    .verticalShiftEffect.animationEnabled & {
+      transition: all .4s cubic-bezier(0.11, 0.68, 0.4, 0.99) 0.4s;
+      transition: all 0.4s cubic-bezier(0.11, 0.56, 0.4, 0.99) 0.4s;
+
+      .identifyOut &{
+        transition: all .4s cubic-bezier(0.63, 0.1, 0.96, 0.56) 0.2s;
+      }
+    }
+  }
+
+  .verticalShiftEffect &{
+    opacity: 1;
   }
 
   .blurEffect &{

@@ -4,6 +4,7 @@ export default class DeviceIdentification {
     this.debug = debug;
 
     this.animationEffects = [
+      'verticalShiftEffect',
       'blurEffect',
     ]
   }
@@ -13,9 +14,9 @@ export default class DeviceIdentification {
     console.log(`myOrder is ${data.userPosition}`);
 
     let delayToStartAnimation = 0;
-    const animationInDuration = 1000;
-    const animationStopDuration = 500;
-    const animationOutDuration = 1000;
+    const animationInDuration = 625;
+    const animationStopDuration = 600;
+    const animationOutDuration = 625;
 
     if(data.userPosition == 1) {
       delayToStartAnimation = 500;
