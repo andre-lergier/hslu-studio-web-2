@@ -1,3 +1,12 @@
+# Multi-Screen Ball Animation
+
+### Architecutre
+![Architecutre Diagram](/assets/server-architektur.png "Architecutre Diagram")
+
+### Sequence Diagram
+The following diagram visualizes all important events, which are sent trough websockets.
+![Sequence Diagram](/assets/sequenzdiagramm.png "Architecutre Diagram")
+
 # Docker
 - [Configuration tutorial](https://www.digitalocean.com/community/tutorials/how-to-secure-a-containerized-node-js-application-with-nginx-let-s-encrypt-and-docker-compose)
 - [Another nice tutorial](https://www.digitalocean.com/community/tutorials/how-to-build-a-node-js-application-with-docker)
@@ -169,6 +178,8 @@ Later change to `0 0 * * *`. This runs the `.sh` script every day at 00:00:
 - Pointer Events: https://patrickhlauke.github.io/touch/tracker/multi-touch-tracker-pointer-hud.html
 - Sortable.js: https://github.com/SortableJS/Sortable
 - Heroku deploy Subdirectory: https://github.com/timanovsky/subdir-heroku-buildpack
+- Matter JS: https://brm.io/matter-js
+- Shopify Draggable: https://shopify.github.io/draggable/examples/
 
 ## Webpack
 #### Loaders:
