@@ -4,7 +4,7 @@ This is project I did in the course __Studio Web & Mobile Design 2__ in my Digit
 The target was to create an animation which runs over several screens/devices. To achieve this, the clients are connected to the server over WebSockets.
 The main tools I used for this Project are [Socket.io](https://socket.io/), [Node.js](https://nodejs.org/en/), [WebPack](https://webpack.js.org/) and [Docker](https://www.docker.com/).
 
-My focus in this project was to create a user interface, which allows users to handle the connected devices easily. Furthermore it was important to me, to build a clean architecture and hosting environment.
+My focus in this project was to create a user interface, which allows users to handle the connected devices easily. Furthermore it was important to me to build a clean architecture and hosting environment.
 
 ### Architecture
 ![Architecutre Diagram](/assets/server-architektur.png "Architecutre Diagram")
@@ -14,19 +14,19 @@ The following diagram visualizes all important events, which are sent trough web
 ![Sequence Diagram](/assets/sequenzdiagramm.png "Architecutre Diagram")
 
 ## Available Scripts
-#### `npm run watch`
-Triggers webpack to watch the files and starts node server with nodemon (runs 'npm run start').
+### `npm run watch`
+Triggers webpack to watch the files and starts node server with nodemon (runs `npm run start`).
 
-#### `npm run build`
+### `npm run build`
 Builds the app with webpack and create files in 'dist' folder.
 
-#### `npm run buildStart`
+### `npm run buildStart`
 Builds the app and starts the node server (runs `npm run build` and `node index.mjs` afterwards).
 
-#### `npm run start`
+### `npm run start`
 Starts node server.
 
-#### `npm run dev`
+### `npm run dev`
 Starts node server with nodemon in devmode.
 
 ## Links
@@ -47,7 +47,7 @@ Starts node server with nodemon in devmode.
 - Shopify Draggable: https://shopify.github.io/draggable/examples/
 
 ### Webpack
-#### Loaders:
+##### Loaders:
 - sass-loader: https://webpack.js.org/loaders/sass-loader/
 - MiniCssExtractPlugin: https://webpack.js.org/plugins/mini-css-extract-plugin/
 - postcss-loader: https://github.com/postcss/postcss-loader
