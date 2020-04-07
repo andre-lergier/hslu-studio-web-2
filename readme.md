@@ -6,6 +6,8 @@ The main tools I used for this Project are [Socket.io](https://socket.io/), [Nod
 
 My focus in this project was to create a user interface, which allows users to handle the connected devices easily. Furthermore it was important to me to build a clean architecture and hosting environment.
 
+![Screencast](/assets/screencast-gif.gif "Screencast")
+
 ### Architecture
 ![Architecutre Diagram](/assets/server-architektur.png "Architecutre Diagram")
 
@@ -57,8 +59,10 @@ Starts node server with nodemon in devmode. To view the page, open http://localh
   - Autoprefixer: https://github.com/postcss/autoprefixer
 
 # Docker
+I use docker to handle all the stuff on my [DigitalOcean](digitalocean.com)-Server.
 - [Configuration tutorial](https://www.digitalocean.com/community/tutorials/how-to-secure-a-containerized-node-js-application-with-nginx-let-s-encrypt-and-docker-compose)
 - [Another nice tutorial](https://www.digitalocean.com/community/tutorials/how-to-build-a-node-js-application-with-docker)
+
 
 ## Docker installation and useful commands
 The following part can be ignored, these are just useful commands about docker for myself.
