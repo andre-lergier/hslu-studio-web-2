@@ -1,7 +1,7 @@
 # Multi-Screen Ball Animation
 This is project I did in the course __Studio Web & Mobile Design 2__ in my Digital Ideation studies at Lucerne University of Applied Science and Arts HSLU.
 
-The target was to create an animation which runs over several screens/devices. To achieve this, the clients communicate over WebSockets.
+The target was to create an animation which runs over several screens/devices. To achieve this, the clients are connected to the server over WebSockets.
 The main tools I used for this Project are [Socket.io](https://socket.io/), [Node.js](https://nodejs.org/en/), [WebPack](https://webpack.js.org/) and [Docker](https://www.docker.com/).
 
 My focus in this project was to create a user interface, which allows users to handle the connected devices easily. Furthermore it was important to me, to build a clean architecture and hosting environment.
