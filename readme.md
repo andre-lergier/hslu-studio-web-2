@@ -4,15 +4,16 @@ This is project I did in the course __Studio Web & Mobile Design 2__ in my Digit
 The target was to create an animation which runs over several screens/devices. To achieve this, the clients are connected to the server over WebSockets.
 The main tools I used for this Project are [Socket.io](https://socket.io/), [Node.js](https://nodejs.org/en/), [WebPack](https://webpack.js.org/) and [Docker](https://www.docker.com/).
 
-My focus in this project was to create a user interface, which allows users to handle the connected devices easily. Furthermore it was important to me to build a clean architecture and hosting environment.
+My focus in this project was to create a user interface, which allows users to handle the connected devices easily. Furthermore it was important to me to build a clean architecture and hosting environment. The technologies I wanted to try out are the `HTML Drag and Drop API`, javascript `RequestAnimationFrame` and javascript `Pointer Events`.
 
 ![Screens Mockup](/assets/screens.png "Screens Mockup")
 
 ### Architecture
+The following diagram showcases the logic of the application and how the server infrastructure looks like.
 ![Architecutre Diagram](/assets/server-architektur.png "Architecutre Diagram")
 
 ### Sequence Diagram
-The following diagram visualizes all important events, which are sent trough websockets.
+The following diagram visualizes all important events, which are transmitted trough WebSockets.
 ![Sequence Diagram](/assets/sequenzdiagramm.png "Architecutre Diagram")
 
 ## Available Scripts
