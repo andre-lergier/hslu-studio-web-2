@@ -6,7 +6,7 @@ The main tools I used for this Project are [Socket.io](https://socket.io/), [Nod
 
 My focus in this project was to create a user interface, which allows users to handle the connected devices easily. Furthermore it was important to me to build a clean architecture and hosting environment.
 
-![Screencast](/assets/screencast-gif.gif "Screencast")
+![Screens Mockup](/assets/screens.png "Screens Mockup")
 
 ### Architecture
 ![Architecutre Diagram](/assets/server-architektur.png "Architecutre Diagram")
