@@ -60,7 +60,7 @@ Starts node server with nodemon in devmode. To view the page, open http://localh
 - [Configuration tutorial](https://www.digitalocean.com/community/tutorials/how-to-secure-a-containerized-node-js-application-with-nginx-let-s-encrypt-and-docker-compose)
 - [Another nice tutorial](https://www.digitalocean.com/community/tutorials/how-to-build-a-node-js-application-with-docker)
 
-## Notes to Docker installation and useful commands
+## Docker installation and useful commands
 The following part can be ignored, these are just useful commands about docker for myself.
 
 ---
