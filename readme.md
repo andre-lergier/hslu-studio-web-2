@@ -15,19 +15,21 @@ The following diagram visualizes all important events, which are sent trough web
 
 ## Available Scripts
 ### `npm run watch`
+Use in __development mode__:
 Triggers webpack to watch the files and starts node server with nodemon (runs `npm run start`).
 
 ### `npm run build`
 Builds the app with webpack and create files in 'dist' folder.
 
 ### `npm run buildStart`
-Builds the app and starts the node server (runs `npm run build` and `node index.mjs` afterwards).
+Use in __production mode__:
+Builds the app and starts the node server (runs `npm run build` and `node index.mjs` afterwards). To view the page, open http://localhost:3000.
 
 ### `npm run start`
-Starts node server.
+Starts node server. To view the page, open http://localhost:3000.
 
 ### `npm run dev`
-Starts node server with nodemon in devmode.
+Starts node server with nodemon in devmode. To view the page, open http://localhost:3000.
 
 ## Links
 
@@ -48,6 +50,7 @@ Starts node server with nodemon in devmode.
 
 ### Webpack
 ##### Loaders:
+- babel-loader: https://webpack.js.org/loaders/babel-loader/
 - sass-loader: https://webpack.js.org/loaders/sass-loader/
 - MiniCssExtractPlugin: https://webpack.js.org/plugins/mini-css-extract-plugin/
 - postcss-loader: https://github.com/postcss/postcss-loader
